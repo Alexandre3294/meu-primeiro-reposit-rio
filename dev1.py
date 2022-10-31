@@ -1,1 +1,1 @@
-print("iwiq")
+print("hello world")
