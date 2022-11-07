@@ -1,0 +1,8 @@
+import random 
+def sorteia_questao(dic,nivel):
+    if nivel == 'facil':
+        return random.choice(dic[nivel])
+    elif nivel == 'medio':
+        return random.choice(dic[nivel])
+    elif nivel == 'dificil':
+        return random.choice(dic[nivel])
