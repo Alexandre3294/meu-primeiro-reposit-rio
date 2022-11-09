@@ -1,6 +1,6 @@
 def valida_questao(dic1):
     dic2 = {}
-    if dic1.keys() in  ['titulo,nivel,opcoes,correta']:
+    if dic1.keys() == ['titulo,nivel,opcoes,correta']:
         if len(dic1.keys()) == 4:
             if dic1['titulo'] != '\t':
                 if dic1['nivel'] == 'facil' or dic1['nivel'] == 'medio' or dic1['nivel'] == 'dificil':
