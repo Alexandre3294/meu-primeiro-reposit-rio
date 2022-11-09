@@ -1,0 +1,44 @@
+def valida_questao(dic1):
+    dic2 = {}
+    if dic1.keys() in  ['titulo,nivel,opcoes,correta']:
+        if len(dic1.keys()) == 4:
+            if dic1['titulo'] != '\t':
+                if dic1['nivel'] == 'facil' or dic1['nivel'] == 'medio' or dic1['nivel'] == 'dificil':
+                    opcoes = dic1['opcoes']
+                    if len(opcoes.keys()) == 4:
+                        if opcoes.keys() == ['A, B, C, D']:
+                            if opcoes['A'] != '\t' and opcoes['B'] != '\t' and opcoes['C'] != '\t' and opcoes['D'] != '\t':
+                                if dic1['correta'] in ['A, B, C, D']:
+                                    return {}
+                                else:
+                                    return {'correta': 'valor_errado'}
+                            else:
+                                lista = []
+                                if opcoes['A'] == '\t':
+                                    lista.append('A:vazia')
+                                if opcoes['B'] == '\t':
+                                    lista.append('B:vazia')
+                                if opcoes['C'] == '\t':
+                                    lista.append('C:vazia')
+                                if opcoes['D'] == '\t':
+                                    lista.append('D:vazia')
+                                return {'opcoes':lista}
+                        else:
+                            return {'opcoes': 'chave_invalida_ou_nao_encontrada'}
+                    else:
+                        return {'opcoes':'tamanho_invalido'}
+                else:
+                    return {'nivel':'valor_errado'}
+            else:
+                return {'titulo':'vazio'}
+        else:
+            return {'outro':'numero_chaves_invalido'}
+    else:
+        if dic1['titulo'] == False:
+            return {'titulo':'nao_encontrado'} 
+        if dic1['nivel'] == False:
+            return {'nivel': 'nao_encontrado'} 
+        if dic1['opcoes'] == False: 
+            return {'opcoes':'nao_encontrado'} 
+        if dic1['correta'] == False:
+            return {'correta':'nao_encontrado'}
