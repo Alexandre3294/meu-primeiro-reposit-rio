@@ -1,44 +1,44 @@
 def valida_questao(dic1):
-    dic2 = {}
-    if dic1.keys() == ['titulo,nivel,opcoes,correta']:
+    if list(dic1.keys()) == ['titulo','nivel','opcoes','correta']:
         if len(dic1.keys()) == 4:
-            if dic1['titulo'] != '\t':
+            if dic1['titulo'] != '\t' or dic1['titulo'] != '':
                 if dic1['nivel'] == 'facil' or dic1['nivel'] == 'medio' or dic1['nivel'] == 'dificil':
                     opcoes = dic1['opcoes']
                     if len(opcoes.keys()) == 4:
-                        if opcoes.keys() == ['A, B, C, D']:
-                            if opcoes['A'] != '\t' and opcoes['B'] != '\t' and opcoes['C'] != '\t' and opcoes['D'] != '\t':
-                                if dic1['correta'] in ['A, B, C, D']:
+                        if list(opcoes.keys()) == ['A', 'B', 'C', 'D']:
+                            if (opcoes['A'] != '\t' or opcoes['A'] != '') and (opcoes['B'] != '\t' or opcoes['B'] != '') and (opcoes['C'] != '\t' or opcoes['C'] != '') and (opcoes['D'] != '\t' or opcoes['D'] != ''):
+                                if dic1['correta'] in ['A', 'B', 'C', 'D']:
                                     return {}
                                 else:
-                                    return {'correta': 'valor_errado'}
+                                    dic1['correta']='valor_errado'
                             else:
-                                lista = []
-                                if opcoes['A'] == '\t':
-                                    lista.append('A:vazia')
-                                if opcoes['B'] == '\t':
-                                    lista.append('B:vazia')
-                                if opcoes['C'] == '\t':
-                                    lista.append('C:vazia')
-                                if opcoes['D'] == '\t':
-                                    lista.append('D:vazia')
-                                return {'opcoes':lista}
+                                dic2={}
+                                if opcoes['A'] == '\t' or opcoes['A'] == '':
+                                    dic2['A']='vazia'
+                                if opcoes['B'] == '\t' or opcoes['A'] == '':
+                                    dic2['B']='vazia'
+                                if opcoes['C'] == '\t' or opcoes['C'] == '':
+                                    dic2['C']='vazia'
+                                if opcoes['D'] == '\t' or opcoes['D'] == '':
+                                    dic2['D']='vazia'
+                                dic1['opcoes']=dic2
                         else:
-                            return {'opcoes': 'chave_invalida_ou_nao_encontrada'}
+                            dic1['opcoes']='chave_invalida_ou_nao_encontrada'
                     else:
-                        return {'opcoes':'tamanho_invalido'}
+                        dic1['opcoes']='tamanho_invalido'
                 else:
-                    return {'nivel':'valor_errado'}
+                    dic1['nivel']='valor_errado'
             else:
-                return {'titulo':'vazio'}
+                dic1['titulo']='vazio'
         else:
-            return {'outro':'numero_chaves_invalido'}
+            dic1['outro']='numero_chaves_invalido'
     else:
         if dic1['titulo'] == False:
-            return {'titulo':'nao_encontrado'} 
+            dic1['titulo']='nao_encontrado'
         if dic1['nivel'] == False:
-            return {'nivel': 'nao_encontrado'} 
+            dic1['nivel']='nao_encontrado'
         if dic1['opcoes'] == False: 
-            return {'opcoes':'nao_encontrado'} 
+            dic1['opcoes']='nao_encontrado'
         if dic1['correta'] == False:
-            return {'correta':'nao_encontrado'}
+            dic1['correta']='nao_encontrado'
+    return dic1
