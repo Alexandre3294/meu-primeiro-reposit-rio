@@ -1,0 +1,116 @@
+import random
+
+def gera_ajuda(dic):
+    erradas=[]
+    dic_aux={}
+    p=random.randint(1,2)
+    
+    for a,b in dic['opcoes'].items():
+        dic_aux[a]=b
+        
+    del dic_aux[dic['correta']]
+    
+    for i in dic_aux.values():
+        erradas.append(i)
+    random.shuffle(erradas)
+    resp='DICA:\nOpções certamente erradas: '+erradas[0]
+    if p>1:
+        resp+=' | '+erradas[1]
+    return resp
+def questao_para_texto(dic, n):
+    resp='{2}\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\n'.format(n, dic['titulo'],'-'*40)
+    for a,b in dic['opcoes'].items():
+        resp+='{0}: {1}\n'.format(a, b)
+    return resp
+import random 
+def sorteia_questao(dic,nivel):
+    return random.choice(dic[nivel])
+def sorteia_questao_inedida(dic_quests,nivel, sort):
+    q_resp=sorteia_questao(dic_quests,nivel)
+    while q_resp in sort:
+        q_resp=sorteia_questao(dic_quests,nivel)
+    sort.append(q_resp)
+    return q_resp
+def transforma_base(lista):
+    dic2 = {}
+    for i in range(len(lista)):
+        dic = lista[i]
+        if dic['nivel'] == 'facil':
+            if dic['nivel'] in dic2.keys():
+                lista1.append(dic)
+                dic2[dic['nivel']] = lista1
+            else:
+                lista1= []
+                lista1.append(dic)
+                dic2[dic['nivel']] = lista1
+
+        if dic['nivel'] == 'medio':
+            if dic['nivel'] in dic2.keys():
+                lista2.append(dic)
+                dic2[dic['nivel']] = lista2
+            else:
+                lista2= []
+                lista2.append(dic)
+                dic2[dic['nivel']] = lista2
+
+        if dic['nivel'] == 'dificil':
+            if dic['nivel'] in dic2.keys():
+                lista3.append(dic)
+                dic2[dic['nivel']] = lista3
+            else:
+                lista3= []
+                lista3.append(dic)
+                dic2[dic['nivel']] = lista3
+
+    return dic2
+def valida_questao(dic1):
+    resp={}
+    if list(dic1.keys()) != ['titulo','nivel','opcoes','correta']:
+        if 'titulo' not in list(dic1.keys()):
+            resp['titulo']='nao_encontrado'
+        if 'nivel' not in list(dic1.keys()):
+            resp['nivel']='nao_encontrado'
+        if 'opcoes' not in list(dic1.keys()):
+            resp['opcoes']='nao_encontrado'
+        if 'correta' not in list(dic1.keys()):
+            resp['correta']='nao_encontrado'
+    if len(dic1.keys()) != 4:
+        resp['outro']='numero_chaves_invalido'
+    if 'titulo' in list(dic1.keys()):
+        if dic1['titulo'] == '\t' or dic1['titulo'] == '':
+            resp['titulo']='vazio'
+    if 'nivel' in list(dic1.keys()):
+        if dic1['nivel'] != 'facil':
+            if dic1['nivel'] != 'medio':
+                if dic1['nivel'] != 'dificil':
+                    resp['nivel']='valor_errado'
+    if 'opcoes' in list(dic1.keys()):    
+        opcoes = dic1['opcoes']
+        if len(opcoes.keys()) == 4:
+            if list(opcoes.keys()) == ['A', 'B', 'C', 'D']:
+                if opcoes['A'] == '\t' or opcoes['A'] ==''  or opcoes['B'] == '\t' or opcoes['B'] ==''  or opcoes['C'] == '\t' or opcoes['C'] ==''  or opcoes['D'] == '\t' or opcoes['D'] == '':
+                    dic2={}
+                    if opcoes['A'] == '\t' or opcoes['A'] == '':
+                        dic2['A']='vazia'
+                    if opcoes['B'] == '\t' or opcoes['B'] == '':
+                        dic2['B']='vazia'
+                    if opcoes['C'] == '\t' or opcoes['C'] == '':
+                        dic2['C']='vazia'
+                    if opcoes['D'] == '\t' or opcoes['D'] == '':
+                        dic2['D']='vazia'
+                    resp['opcoes']=dic2
+            else:
+                resp['opcoes']='chave_invalida_ou_nao_encontrada'
+        else:
+            resp['opcoes']='tamanho_invalido'
+    if 'correta' in list(dic1.keys()):    
+        if dic1['correta'] not in ['A', 'B', 'C', 'D']:
+            resp['correta']='valor_errado'
+    return resp
+
+def valida_questoes(lista):
+    resp=[]
+    for d in lista:
+        probs=valida_questao(d)
+        resp.append(probs)
+    return resp
